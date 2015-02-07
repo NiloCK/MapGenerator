@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>States Infographics</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<body>
+<input id="Query" type="text"></input><button onclick="generate()">GO!</button>
+</body>
+
+<script type="text/javascript">
+
+function generate () {
+	var query = $('#Query').val();
+	var result = $.get({
+		url: "http://suggestqueries.google.com/complete/search",
+		data: { 
+			"client" : "chrome",
+			"q" : query 
+		},
+		dataType:"json"
+	}).done(function (data) {
+		console.log(data);
+	}).fail(function (fail) {
+		console.log(fail);
+	});
+	console.log(result.statusText);
+}
+
+</script>
+</html>
