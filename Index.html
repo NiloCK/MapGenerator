@@ -12,14 +12,15 @@
 
 function generate () {
 	var query = $('#Query').val();
-	var result = $.get({
-		url: "http://suggestqueries.google.com/complete/search",
-		data: { 
+	var result = $.get("http://suggestqueries.google.com/complete/search", {
 			"client" : "chrome",
 			"q" : query 
 		},
-		dataType:"json"
-	}).done(function (data) {
+		function (res) {
+			console.log(res);
+		},
+		"json"
+	).done(function (data) {
 		console.log(data);
 	}).fail(function (fail) {
 		console.log(fail);
