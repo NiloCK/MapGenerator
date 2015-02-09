@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+	<meta content="utf-8" http-equiv="encoding">
 	<title>States Infographics</title>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
 <body>
-<input id="Query" type="text"></input><button onclick="generate()">GO!</button>
+<input id="Query" type="text"></input><button onclick="gen2()">GO!</button>
 </body>
 
 <script type="text/javascript">
@@ -26,6 +28,23 @@ function generate () {
 		console.log(fail);
 	});
 	console.log(result.statusText);
+}
+
+function gen2(){
+	var xhr = new XMLHttpRequest({mozAnon: true, mozSystem : true});
+	
+	xhr.onreadystatechange = function () {
+		if (xhr.readyState == 4){
+			console.log(xhr.responseText);
+		}
+	};
+
+	//xhr.responseType = "json";
+	xhr.open("GET", "http://suggestqueries.google.com/complete/search", true);
+	xhr.send({client : "firefox",
+			  q : "where is"});
+
+
 }
 
 </script>
