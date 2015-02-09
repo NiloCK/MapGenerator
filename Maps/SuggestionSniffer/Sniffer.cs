@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -15,17 +16,33 @@ namespace SuggestionSniffer
             {
                 throw new ArgumentException("Query must contain '{state}'.");
             }
+            var ret = new List<String>();
+
             
-            WebRequest req = WebRequest.CreateHttp("http://suggestqueries.google.com/complete/search");
-            req.Method = "GET";
-            WebClient client;
-            WebClient client = new WebClient();
-            client.QueryString = new System.Collections.Specialized.NameValueCollection(2);
-
-
-
             return null;
         }
+        
+        
+        private static String JSONString(String query)
+        {
+            WebRequest req = WebRequest.CreateHttp("http://suggestqueries.google.com/complete/search");
+            req.Method = "GET";
+
+            WebClient client = new WebClient();
+            client.QueryString = new System.Collections.Specialized.NameValueCollection(2);
+            client.QueryString.Add("client", "chrome");
+            client.QueryString.Add("q", "where is");
+
+            using (Stream data = client.OpenRead("http://suggestqueries.google.com/complete/search"))
+            {
+                using (StreamReader reader = new StreamReader(data))
+                {
+                    return reader.ReadLine();
+                }
+            }
+        }
+
+        
 
         private static readonly IDictionary<string, string> states = new Dictionary<string, string>
         {
