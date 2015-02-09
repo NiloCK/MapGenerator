@@ -18,12 +18,24 @@ namespace SuggestionSniffer
             }
             var ret = new List<String>();
 
+            foreach (var state in states.Values)
+            {
+                String json = JSONString(query.Replace("{state}", state));
+                // todo parse object and get best extension etc etc
+            }
             
             return null;
         }
+
+
         
-        
-        private static String JSONString(String query)
+        /// <summary>
+        /// Google API for autocomplete suggestions as 'documented' at
+        /// http://stackoverflow.com/questions/6428502/google-search-autocomplete-api
+        /// </summary>
+        /// <param name="query">The 'user text' on which to provide suggestions</param>
+        /// <returns>Raw string of JSON object containing suggestions.</returns>
+        public static String JSONString(String query)
         {
             WebRequest req = WebRequest.CreateHttp("http://suggestqueries.google.com/complete/search");
             req.Method = "GET";
@@ -31,7 +43,7 @@ namespace SuggestionSniffer
             WebClient client = new WebClient();
             client.QueryString = new System.Collections.Specialized.NameValueCollection(2);
             client.QueryString.Add("client", "chrome");
-            client.QueryString.Add("q", "where is");
+            client.QueryString.Add("q", query);
 
             using (Stream data = client.OpenRead("http://suggestqueries.google.com/complete/search"))
             {

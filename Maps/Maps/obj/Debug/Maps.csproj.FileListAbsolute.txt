@@ -16,3 +16,5 @@ C:\dev\AutoCompleteMaps\Maps\Maps\bin\System.Web.Mvc.xml
 C:\dev\AutoCompleteMaps\Maps\Maps\obj\Debug\Maps.csprojResolveAssemblyReference.cache
 C:\dev\AutoCompleteMaps\Maps\Maps\obj\Debug\Maps.dll
 C:\dev\AutoCompleteMaps\Maps\Maps\obj\Debug\Maps.pdb
+C:\dev\AutoCompleteMaps\Maps\Maps\bin\SuggestionSniffer.dll
+C:\dev\AutoCompleteMaps\Maps\Maps\bin\SuggestionSniffer.pdb

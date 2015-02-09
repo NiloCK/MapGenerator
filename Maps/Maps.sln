@@ -5,6 +5,10 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maps", "Maps\Maps.csproj", "{5DA5C9C8-098F-41DF-AE41-81AC706F208C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuggestionSniffer", "SuggestionSniffer\SuggestionSniffer.csproj", "{55471F25-398D-4F72-9FCF-5BB02AC70E1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCompleteMapTests", "AutoCompleteMapTests\AutoCompleteMapTests.csproj", "{52B97777-B3EB-48FA-99F8-69BCE0979E38}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{5DA5C9C8-098F-41DF-AE41-81AC706F208C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DA5C9C8-098F-41DF-AE41-81AC706F208C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DA5C9C8-098F-41DF-AE41-81AC706F208C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55471F25-398D-4F72-9FCF-5BB02AC70E1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55471F25-398D-4F72-9FCF-5BB02AC70E1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55471F25-398D-4F72-9FCF-5BB02AC70E1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55471F25-398D-4F72-9FCF-5BB02AC70E1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52B97777-B3EB-48FA-99F8-69BCE0979E38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52B97777-B3EB-48FA-99F8-69BCE0979E38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52B97777-B3EB-48FA-99F8-69BCE0979E38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52B97777-B3EB-48FA-99F8-69BCE0979E38}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
