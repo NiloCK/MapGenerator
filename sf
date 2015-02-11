@@ -1,0 +1,32 @@
+[1mdiff --git a/Maps/AutoCompleteMapTests/SnifferTest.cs b/Maps/AutoCompleteMapTests/SnifferTest.cs[m
+[1mindex 64a3210..ce740ef 100644[m
+[1m--- a/Maps/AutoCompleteMapTests/SnifferTest.cs[m
+[1m+++ b/Maps/AutoCompleteMapTests/SnifferTest.cs[m
+[36m@@ -17,10 +17,9 @@[m [mnamespace AutoCompleteMapTests[m
+         [TestMethod][m
+         public void JSONString()[m
+         {[m
+[31m-            for (int i = 0; i < 100; i++ )[m
+[31m-                Debug.WriteLine("Hey"); // not writing.[m
+[32m+[m[32m            String s = Sniffer.JSONString("where is");[m[41m[m
+ [m
+[31m-            Debug.WriteLine(Sniffer.JSONString("where is"));[m
+[32m+[m[32m            Debug.WriteLine(s);[m[41m[m
+             // todo : pass this through a json validator I guess.[m
+         }[m
+     }[m
+[1mdiff --git a/Maps/Maps/bin/Maps.dll b/Maps/Maps/bin/Maps.dll[m
+[1mindex b8cf665..eacedcc 100644[m
+Binary files a/Maps/Maps/bin/Maps.dll and b/Maps/Maps/bin/Maps.dll differ
+[1mdiff --git a/Maps/Maps/bin/Maps.pdb b/Maps/Maps/bin/Maps.pdb[m
+[1mindex 91b3247..e92e80d 100644[m
+Binary files a/Maps/Maps/bin/Maps.pdb and b/Maps/Maps/bin/Maps.pdb differ
+[1mdiff --git a/Maps/Maps/obj/Debug/Maps.csprojResolveAssemblyReference.cache b/Maps/Maps/obj/Debug/Maps.csprojResolveAssemblyReference.cache[m
+[1mindex 2b1388d..4f87489 100644[m
+Binary files a/Maps/Maps/obj/Debug/Maps.csprojResolveAssemblyReference.cache and b/Maps/Maps/obj/Debug/Maps.csprojResolveAssemblyReference.cache differ
+[1mdiff --git a/Maps/Maps/obj/Debug/Maps.dll b/Maps/Maps/obj/Debug/Maps.dll[m
+[1mindex b8cf665..eacedcc 100644[m
+Binary files a/Maps/Maps/obj/Debug/Maps.dll and b/Maps/Maps/obj/Debug/Maps.dll differ
+[1mdiff --git a/Maps/Maps/obj/Debug/Maps.pdb b/Maps/Maps/obj/Debug/Maps.pdb[m
+[1mindex 91b3247..e92e80d 100644[m
+Binary files a/Maps/Maps/obj/Debug/Maps.pdb and b/Maps/Maps/obj/Debug/Maps.pdb differ

@@ -13,9 +13,17 @@
 </head>
 <body>
     <div>
-        <input type="text" />
-
-
+        @using (Html.BeginForm())
+        {
+            @Html.TextBox("Query");
+            <input type="submit" />
+        }
+        <ul>
+        @foreach (var suggestion in ViewBag.Results)
+        {
+            <li>@suggestion</li>
+        }
+        </ul>
     </div>
 </body>
 </html>

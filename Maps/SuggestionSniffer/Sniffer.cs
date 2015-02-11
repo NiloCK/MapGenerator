@@ -12,19 +12,27 @@ namespace SuggestionSniffer
     {
         public static List<String> Extensions(String query)
         {
-            if (query.Contains("{state}"))
-            {
-                throw new ArgumentException("Query must contain '{state}'.");
-            }
             var ret = new List<String>();
+            if (String.IsNullOrEmpty(query))
+            {
+                return ret;
+            }
+            
+            if (!query.Contains("{state}"))
+            {
+                ret.Add("Query must contain {state}");
+                return ret;
+            }
+            
 
             foreach (var state in states.Values)
             {
                 String json = JSONString(query.Replace("{state}", state));
+                ret.Add(json);
                 // todo parse object and get best extension etc etc
             }
             
-            return null;
+            return ret;
         }
 
 

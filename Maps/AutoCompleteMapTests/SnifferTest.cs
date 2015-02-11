@@ -17,10 +17,9 @@ namespace AutoCompleteMapTests
         [TestMethod]
         public void JSONString()
         {
-            for (int i = 0; i < 100; i++ )
-                Debug.WriteLine("Hey"); // not writing.
+            String s = Sniffer.JSONString("where is");
 
-            Debug.WriteLine(Sniffer.JSONString("where is"));
+            Debug.WriteLine(s);
             // todo : pass this through a json validator I guess.
         }
     }
