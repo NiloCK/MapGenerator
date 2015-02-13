@@ -22,5 +22,14 @@ namespace AutoCompleteMapTests
             Debug.WriteLine(s);
             // todo : pass this through a json validator I guess.
         }
+
+        [TestMethod]
+        public void Nth()
+        {
+            String test = "012012012";
+            
+            Assert.AreEqual(test.Nth(1, "0"), 0);
+            Assert.AreEqual(test.Nth(2, "0"), 3);
+        }
     }
 }

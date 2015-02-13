@@ -5,20 +5,21 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace SuggestionSniffer
 {
     public class Sniffer
     {
-        public static List<String> Extensions(String query)
+        public static List<String> Extensions(String Query)
         {
             var ret = new List<String>();
-            if (String.IsNullOrEmpty(query))
+            if (String.IsNullOrEmpty(Query))
             {
                 return ret;
             }
             
-            if (!query.Contains("{state}"))
+            if (!Query.Contains("{state}"))
             {
                 ret.Add("Query must contain {state}");
                 return ret;
@@ -27,7 +28,7 @@ namespace SuggestionSniffer
 
             foreach (var state in states.Values)
             {
-                String json = JSONString(query.Replace("{state}", state));
+                String json = JSONString(Query.Replace("{state}", state));
                 ret.Add(json);
                 // todo parse object and get best extension etc etc
             }
@@ -35,15 +36,23 @@ namespace SuggestionSniffer
             return ret;
         }
 
-
+        public static String Suggestion(String Query)
+        {
+            String json = JSONString(Query);
+            //JsonConverter
+            
+            
+            
+            return null;
+        }
         
         /// <summary>
         /// Google API for autocomplete suggestions as 'documented' at
         /// http://stackoverflow.com/questions/6428502/google-search-autocomplete-api
         /// </summary>
-        /// <param name="query">The 'user text' on which to provide suggestions</param>
+        /// <param name="Query">The 'user text' on which to provide suggestions</param>
         /// <returns>Raw string of JSON object containing suggestions.</returns>
-        public static String JSONString(String query)
+        public static String JSONString(String Query)
         {
             WebRequest req = WebRequest.CreateHttp("http://suggestqueries.google.com/complete/search");
             req.Method = "GET";
@@ -51,7 +60,7 @@ namespace SuggestionSniffer
             WebClient client = new WebClient();
             client.QueryString = new System.Collections.Specialized.NameValueCollection(2);
             client.QueryString.Add("client", "chrome");
-            client.QueryString.Add("q", query);
+            client.QueryString.Add("q", Query);
 
             using (Stream data = client.OpenRead("http://suggestqueries.google.com/complete/search"))
             {
@@ -62,6 +71,12 @@ namespace SuggestionSniffer
             }
         }
 
+        class SuggestionResult
+        {
+            public String Query { get; set; }
+            public List<String> Suggestions { get; set; }
+            public List<int> Scores { get; set; }
+        }
         
 
         private static readonly IDictionary<string, string> states = new Dictionary<string, string>
@@ -118,5 +133,29 @@ namespace SuggestionSniffer
             { "WI", "Wisconsin" },
             { "WY", "Wyoming" }
         };
+    }
+    public static class Extensions
+    {
+        public static int Nth(this String str, int n, String s)
+        {
+            int count = 0;
+            int ret = -1;
+            string replacement = s;
+            
+            replacement = replacement.ToUpper();
+
+            if (replacement.Equals(s)){
+                char first = replacement.ElementAt(0);
+                replacement.Replace(first, ++first);
+            }
+
+            while (count < n){
+                ret = str.IndexOf(s);
+                //todo : str.ReplaceFirst(s,replacement)
+                count++;
+            }
+
+            return ret;
+        }
     }
 }
