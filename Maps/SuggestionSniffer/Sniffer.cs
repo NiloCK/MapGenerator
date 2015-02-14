@@ -140,19 +140,27 @@ namespace SuggestionSniffer
         {
             int count = 0;
             int ret = -1;
-            string replacement = s;
             
-            replacement = replacement.ToUpper();
-
-            if (replacement.Equals(s)){
-                char first = replacement.ElementAt(0);
-                replacement.Replace(first, ++first);
-            }
+            // replacement takes the place of each of the
+            // (n-1) first occurances of the string
+            string replacement = s;
+            char first = replacement.ElementAt(0);
+            char diff = first;
+            diff++;
+            replacement = replacement.Replace(first, diff);
 
             while (count < n){
                 ret = str.IndexOf(s);
-                //todo : str.ReplaceFirst(s,replacement)
+                str = str.Remove(ret, s.Length);
+                str = str.Insert(ret, replacement);
+                
                 count++;
+
+                // failed to find 's' n times - failure case
+                if (ret == -1)
+                {
+                    return -1;
+                }
             }
 
             return ret;
