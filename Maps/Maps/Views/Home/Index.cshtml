@@ -36,15 +36,29 @@
             // United Wireless Arena
             // Sacred Heart Catholic School
             // etc etc
-            placesService.nearbySearch( request, function (results, status) {
-                if (status == google.maps.places.PlacesServiceStatus.OK) {
-                    for (var i = 0; i < results.length; i++) {
-                        var li = document.createElement("li");
-                        li.innerHTML = results[i].toString();
-                        document.getElementById("Suggestion").appendChild(li);
-                    }
-                }
-            });
+
+            // this is no good anyway - it returns garbage places, eg, Tony's Tire Shop,
+            // rather than anything useful. see https://developers.google.com/places/documentation/supported_types
+
+            /*
+             (from above)
+             The following types may be returned in the results of a place search,
+             in addition to the types in table 1 above.
+             Note: The types below are not supported in the types filter of a place search,
+             or in the types property when adding a place.
+
+             ... Country ... sublocality ...
+            */
+
+            //placesService.nearbySearch( request, function (results, status) {
+            //    if (status == google.maps.places.PlacesServiceStatus.OK) {
+            //        for (var i = 0; i < results.length; i++) {
+            //            var li = document.createElement("li");
+            //            li.innerHTML = results[i].toString();
+            //            document.getElementById("Suggestion").appendChild(li);
+            //        }
+            //    }
+            //});
         }
 
 
