@@ -10,9 +10,83 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Hello World</title>
+    <script src="~/States.js"></script>
+    @*<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>*@
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+    <script type="text/javascript">
+        var map;
+        var placesService;
+
+        function initMap() {
+            var mapOptions = {
+                center: { lat: 40, lng: -100 },
+                zoom: 4
+            };
+            map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+            placesService = new google.maps.places.PlacesService(map);
+
+            var mapBounds = map.getBounds();
+            var request = {
+                "bounds" : mapBounds
+            };
+            // this is breaking because request is not 'properly constructed'
+            // when it is passed to nearbySearch. Stepping through the search works fine,
+            // except that it returns garbage:
+            // Tornado Alley
+            // United Wireless Arena
+            // Sacred Heart Catholic School
+            // etc etc
+            placesService.nearbySearch( request, function (results, status) {
+                if (status == google.maps.places.PlacesServiceStatus.OK) {
+                    for (var i = 0; i < results.length; i++) {
+                        var li = document.createElement("li");
+                        li.innerHTML = results[i].toString();
+                        document.getElementById("Suggestion").appendChild(li);
+                    }
+                }
+            });
+        }
+
+
+        google.maps.event.addDomListener(window, 'load', initMap);
+
+        function ListPlaces() {
+             
+
+        }
+
+        function GetSuggestions() {
+            var Query = document.getElementById("JSQuery").value;
+            //alert(Query);
+            for (var key in StatesHash) {
+                var stateQuery = Query.replace("{state}", StatesHash[key]);
+                //alert(stateQuery);
+
+                var xhr = new XMLHttpRequest();
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        //alert("readyStateChange === 4");
+                        var li = document.createElement("li");
+                        li.innerHTML = xhr.responseText;
+
+                        document.getElementById("Suggestion").appendChild(li);
+                    }
+                }
+
+                xhr.open("GET", "Home/Suggestion/?Query="+stateQuery, true);
+                //xhr.setRequestHeader("Query", stateQuery);
+                xhr.send();
+            }
+        }
+
+    </script>
 </head>
 <body>
     <div>
+        <h1>
+            Passing User String to Controller
+        </h1>
         @using (Html.BeginForm())
         {
             @Html.TextBox("Query");
@@ -24,9 +98,15 @@
             <li>@suggestion</li>
         }
         </ul>
-        @{
-            // todo: put a map in here.
-        }
+
+        <h1>JS passing Query-per-state</h1>
+        <input type="text" id="JSQuery" name="Query" />
+        <input type="submit" onclick="GetSuggestions()" />
+        <ul id="Suggestion">
+
+        </ul>
+        <div id="map-canvas" style="height: 500px; margin: 0; padding: 0"><button onclick="ListPlaces()"></button></div>
     </div>
 </body>
+
 </html>

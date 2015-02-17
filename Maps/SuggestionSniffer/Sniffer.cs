@@ -11,7 +11,7 @@ namespace SuggestionSniffer
 {
     public class Sniffer
     {
-        public static List<String> Extensions(String Query)
+        public static List<String> StateSuggestions(String Query)
         {
             var ret = new List<String>();
             if (String.IsNullOrEmpty(Query))
@@ -24,15 +24,14 @@ namespace SuggestionSniffer
                 ret.Add("Query must contain {state}");
                 return ret;
             }
-            
 
             foreach (var state in states.Values)
             {
-                String json = JSONString(Query.Replace("{state}", state));
-                ret.Add(json);
-                // todo parse object and get best extension etc etc
+                var searchString = Query.Replace("{state}", state);
+                var result = BestResult(searchString);
+                ret.Add(result);
             }
-            //testchange
+            
             return ret;
         }
 
@@ -40,9 +39,7 @@ namespace SuggestionSniffer
         {
             String json = JSONString(Query);
             //JsonConverter
-            
-            
-            
+
             return null;
         }
         
@@ -69,6 +66,21 @@ namespace SuggestionSniffer
                     return reader.ReadLine();
                 }
             }
+        }
+
+        /// <summary>
+        /// Returns the top suggestion for the given query.
+        /// </summary>
+        /// <param name="Query">User text on which to provide suggestion</param>
+        /// <returns>Top suggestion</returns>
+        public static String BestResult(String Query)
+        {
+            var json = JSONString(Query);
+
+            int Start = json.Nth(3, "\"") + 1;
+            int Finish = json.Nth(4, "\"");
+
+            return json.Substring(Start, Finish - Start);
         }
 
         class SuggestionResult
