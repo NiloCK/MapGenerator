@@ -26,5 +26,10 @@ namespace Maps.Controllers
             return Content(Sniffer.BestResult(Query));
         }
 
+        public ContentResult Data(String Query)
+        {
+            return Content(Sniffer.JSONString(Query));
+        }
+
     }
 }

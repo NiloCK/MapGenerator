@@ -66,11 +66,32 @@
         }
 
 
-        google.maps.event.addDomListener(window, 'load', initMap);
+        //google.maps.event.addDomListener(window, 'load', initMap);
 
         function ListPlaces() {
              
 
+        }
+
+        function GetSuggestionsParseLocal() {
+            var Query = document.getElementById("JSQuery").value;
+            for (var key in StatesHash) {
+                var stateQuery = Query.replace("{state}", StatesHash[key]);
+
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        var data = JSON.parse(xhr.responseText);
+
+                        var li = document.createElement('li');
+                        li.innerHTML = data[1][0];
+
+                        document.getElementById("Suggestion").appendChild(li);
+                    }
+                }
+                xhr.open("GET", "./Home/Data/?Query=" + stateQuery, false);
+                xhr.send();
+            }
         }
 
         function GetSuggestions() {
@@ -92,7 +113,7 @@
                     }
                 }
 
-                xhr.open("GET", "Home/Suggestion/?Query="+stateQuery, true);
+                xhr.open("GET", "./Home/Suggestion/?Query="+stateQuery, false);
                 //xhr.setRequestHeader("Query", stateQuery);
                 xhr.send();
             }
@@ -120,10 +141,13 @@
         <h1>JS passing Query-per-state</h1>
         <input type="text" id="JSQuery" name="Query" />
         <input type="submit" onclick="GetSuggestions()" />
+        <input type="submit" onclick="GetSuggestionsParseLocal()" value="Parse Local" />
         <ul id="Suggestion">
 
         </ul>
-        <div id="map-canvas" style="height: 500px; margin: 0; padding: 0"><button onclick="ListPlaces()"></button></div>
+        <div id="map-canvas" style="height: 500px; margin: 0; padding: 0">
+        <button onclick="ListPlaces()"></button>
+        </div>
     </div>
 </body>
 
