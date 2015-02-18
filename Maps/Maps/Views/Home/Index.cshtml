@@ -74,7 +74,7 @@
         }
 
         function GetSuggestionsParseLocal() {
-            var Query = document.getElementById("JSQuery").value;
+            var Query = document.getElementById("Query").value;
             for (var key in StatesHash) {
                 var stateQuery = Query.replace("{state}", StatesHash[key]);
 
@@ -89,13 +89,13 @@
                         document.getElementById("Suggestion").appendChild(li);
                     }
                 }
-                xhr.open("GET", "./Home/Data/?Query=" + stateQuery, false);
+                xhr.open("GET", "@Url.Action("Data", "Home")" + "?Query=" + stateQuery, false);
                 xhr.send();
             }
         }
 
         function GetSuggestions() {
-            var Query = document.getElementById("JSQuery").value;
+            var Query = document.getElementById("Query").value;
             //alert(Query);
             for (var key in StatesHash) {
                 var stateQuery = Query.replace("{state}", StatesHash[key]);
@@ -113,7 +113,7 @@
                     }
                 }
 
-                xhr.open("GET", "./Home/Suggestion/?Query="+stateQuery, false);
+                xhr.open("GET", "@Url.Action("Suggestion", "Home")" + "?Query=" + stateQuery, false);
                 //xhr.setRequestHeader("Query", stateQuery);
                 xhr.send();
             }
@@ -123,8 +123,7 @@
 </head>
 <body>
     <div>
-        <h1>@*//todo: Clean up this page so that there's only one 
-                textbox with three properly labelled buttons.*@
+        <h1>
         @*//todo: move all of the JS out of here to diff files.*@
             Passing User String to Controller
         </h1>
@@ -133,20 +132,17 @@
             @Html.TextBox("Query");
             <input type="submit" />
         }
-        <ul>
+        <input type="submit" onclick="GetSuggestions()" value="Request per State" />
+        <input type="submit" onclick="GetSuggestionsParseLocal()" value="Parse Local" />
+        <ul id="Suggestion">
         @foreach (var suggestion in ViewBag.Results)
         {
             <li>@suggestion</li>
         }
         </ul>
 
-        <h1>JS passing Query-per-state</h1>
-        <input type="text" id="JSQuery" name="Query" />
-        <input type="submit" onclick="GetSuggestions()" />
-        <input type="submit" onclick="GetSuggestionsParseLocal()" value="Parse Local" />
-        <ul id="Suggestion">
-
-        </ul>
+        @*<h1>JS passing Query-per-state</h1>*@
+        @*<input type="text" id="JSQuery" name="Query" />*@
         <div id="map-canvas" style="height: 500px; margin: 0; padding: 0">
         <button onclick="ListPlaces()"></button>
         </div>
